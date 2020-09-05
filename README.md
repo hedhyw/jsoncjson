@@ -1,10 +1,13 @@
 # JSONcJSON
 JSONC (json with comments) to JSON streamer.
 
-The library streams JSON with comments:
+The library translates JSON with comments:
 ```jsonc
 {
-    /* JSONcJSON */
+    /*
+        JSONcJSON
+        =^._.^= ∫
+    */
     "Hello": "world" // In-line comments are also supported.
 }
 ```
@@ -23,7 +26,7 @@ go get github.com/hedhyw/jsoncjson
 
 ## Usage example:
 
-More [examples](./examples).
+More [examples](./example_test.go).
 
 ```go
 // Converting jsonc to json and decoding.

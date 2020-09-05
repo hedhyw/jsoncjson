@@ -10,7 +10,7 @@ import (
 	"github.com/hedhyw/jsoncjson"
 )
 
-func TestJSONToJSON(t *testing.T) {
+func TestJSONWithoutComments(t *testing.T) {
 	const jsoncInStr = `{"hello": "world"}`
 	var jsoncIn = strings.NewReader(jsoncInStr)
 
@@ -178,10 +178,14 @@ func testJSON(t *testing.T, in string, exp interface{}, got interface{}) {
 	var r = jsoncjson.NewReader(strings.NewReader(in))
 
 	var buff bytes.Buffer
-	buff.ReadFrom(r)
+	var _, err = buff.ReadFrom(r)
+	if err != nil {
+		t.Fatalf("err: %s", err)
+	}
+
 	t.Log(buff.String())
 
-	var err = json.NewDecoder(&buff).Decode(got)
+	err = json.NewDecoder(&buff).Decode(got)
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}

@@ -1,3 +1,18 @@
+// Package jsoncjson provides JSONC (JSON with comment) reader that
+// removes all comments from the input.
+//
+// For example following input:
+//
+// 		{ /* Comment. */
+//   		"Hello": "World" // Comment.
+//		}
+//
+// Produces:
+//
+// 		{
+// 			"Hello": "World"
+//       }
+//
 package jsoncjson
 
 import (
@@ -41,6 +56,16 @@ func (t *jsoncTranslator) Read(jsonOut []byte) (n int, err error) {
 
 	return n, nil
 }
+
+type token int8
+
+const (
+	tokenString token = iota
+	tokenSingleComment
+	tokenMultiComment
+	tokenUnknownComment
+	tokenOther
+)
 
 func (t *jsoncTranslator) handleToken(curByte byte) (skip bool) {
 	switch t.curToken {
