@@ -9,6 +9,10 @@ git:
 notifications:
   email: false
 
+before_install:
+- go get github.com/mattn/goveralls
+
 script:
 - make lint
-- make test
+- make test.coverage
+- $GOPATH/bin/goveralls -service=travis-ci

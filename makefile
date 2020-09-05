@@ -11,6 +11,11 @@ lint: bin/golangci-lint
 	./bin/golangci-lint run
 .PHONY: lint
 
+test.coverage:
+	go test -v -covermode=count -coverprofile=coverage.out
+	goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
+.PHONY: test.coverage
+
 test:
 	go test
 .PHONY: test
