@@ -3,15 +3,15 @@
 //
 // For example following input:
 //
-// 		{ /* Comment. */
-//   		"Hello": "World" // Comment.
-//		}
+//	{ /* Comment. */
+//		"Hello": "World" // Comment.
+//	}
 //
 // Produces:
 //
-// 		{
-// 			"Hello": "World"
-//       }
+//	{
+//		"Hello": "World"
+//	}
 //
 package jsoncjson
 
@@ -32,7 +32,7 @@ type jsoncTranslator struct {
 	curToken token
 }
 
-// NewReader creates new reader that removes all comment from the jsonc
+// NewReader creates new reader that removes all comments from a jsonc
 // input and returns pure json.
 func NewReader(r io.Reader) io.Reader {
 	return &jsoncTranslator{

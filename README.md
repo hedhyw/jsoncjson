@@ -1,6 +1,7 @@
 # JSONcJSON
 
 [![Build Status](https://travis-ci.org/hedhyw/jsoncjson.svg?branch=master)](https://travis-ci.org/hedhyw/jsoncjson)
+[![GoDev](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/hedhyw/jsoncjson)
 
 The library provides a JSONC (json with comments) to JSON streamer.
 
