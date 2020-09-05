@@ -10,11 +10,9 @@ notifications:
   email: false
 
 before_install:
-- export COVERALLS_SERVICE_JOB_ID=$( TRAVIS_JOB_ID )
-- export COVERALLS_SERVICE_NAME="jsoncjson go code coverage"
 - go get github.com/mattn/goveralls
 
 script:
 - make lint
 - make test.coverage
-- $GOPATH/bin/goveralls -service=travis-ci
+- $GOPATH/bin/goveralls -service=travis-ci -repotoken $COVERALLS_TOKEN
