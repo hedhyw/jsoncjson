@@ -1,7 +1,10 @@
 # JSONcJSON
-JSONC (json with comments) to JSON streamer.
 
-The library translates JSON with comments:
+[![Build Status](https://travis-ci.org/hedhyw/jsoncjson.svg?branch=master)](https://travis-ci.org/hedhyw/jsoncjson)
+
+The library provides a JSONC (json with comments) to JSON streamer.
+
+It translates JSON with comments:
 ```jsonc
 {
     /*
