@@ -3,7 +3,9 @@ package jsoncjson_test
 import (
 	"bytes"
 	"encoding/json"
+	"io/ioutil"
 	"reflect"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -192,5 +194,29 @@ func testJSON(t *testing.T, in string, exp interface{}, got interface{}) {
 
 	if !reflect.DeepEqual(exp, got) {
 		t.Fatalf("exp %+x, got: %+x", exp, got)
+	}
+}
+
+func TestLargeJSON(t *testing.T) {
+	var data = make(map[string]int, bytes.MinRead)
+	for i := 0; i < bytes.MinRead; i++ {
+		data[strconv.Itoa(i)] = i
+	}
+
+	var expBuf, err = json.Marshal(data)
+	if err != nil {
+		t.Fatalf("err: %s", err)
+	}
+
+	var r = jsoncjson.NewReader(bytes.NewReader(expBuf))
+
+	var gotBuf []byte
+	gotBuf, err = ioutil.ReadAll(r)
+	if err != nil {
+		t.Fatalf("err: %s", err)
+	}
+
+	if !bytes.Equal(expBuf, gotBuf) {
+		t.Fatalf("exp len %d, got len: %d", len(expBuf), len(gotBuf))
 	}
 }

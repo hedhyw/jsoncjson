@@ -54,7 +54,7 @@ func (t *jsoncTranslator) Read(jsonOut []byte) (n int, err error) {
 		}
 	}
 
-	return n, nil
+	return n + 1, nil
 }
 
 type token int8
