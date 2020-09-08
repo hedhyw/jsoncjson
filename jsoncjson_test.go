@@ -3,6 +3,7 @@ package jsoncjson_test
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"reflect"
 	"strconv"
@@ -218,5 +219,27 @@ func TestLargeJSON(t *testing.T) {
 
 	if !bytes.Equal(expBuf, gotBuf) {
 		t.Fatalf("exp len %d, got len: %d", len(expBuf), len(gotBuf))
+	}
+}
+
+type errorReader struct {
+	err error
+}
+
+func (r errorReader) Read([]byte) (n int, err error) {
+	return 0, r.err
+}
+
+func TestThrownError(t *testing.T) {
+	var expErr = errors.New("test error")
+
+	var r = jsoncjson.NewReader(errorReader{
+		err: expErr,
+	})
+
+	var _, err = r.Read(make([]byte, bytes.MinRead))
+
+	if !errors.Is(err, expErr) {
+		t.Fatalf("exp %s, got: %s", expErr, err)
 	}
 }

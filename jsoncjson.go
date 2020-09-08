@@ -28,8 +28,8 @@ type jsoncTranslator struct {
 	end    bool
 	cursor int
 
-	lastByte byte
-	curToken token
+	lastByte  byte
+	lastToken token
 }
 
 // NewReader creates new reader that removes all comments from a jsonc
@@ -41,7 +41,7 @@ func NewReader(r io.Reader) io.Reader {
 		data:   make([]byte, bytes.MinRead),
 		cursor: bytes.MinRead,
 
-		curToken: tokenOther,
+		lastToken: tokenOther,
 	}
 }
 
@@ -68,40 +68,40 @@ const (
 )
 
 func (t *jsoncTranslator) handleToken(curByte byte) (skip bool) {
-	switch t.curToken {
+	switch t.lastToken {
 	case tokenString:
 		if curByte == '"' {
-			t.curToken = tokenOther
+			t.lastToken = tokenOther
 		}
 
 		return false
 	case tokenSingleComment:
 		if curByte == '\n' {
-			t.curToken = tokenOther
+			t.lastToken = tokenOther
 		}
 
 		return true
 	case tokenMultiComment:
 		if curByte == '/' && t.lastByte == '*' {
-			t.curToken = tokenOther
+			t.lastToken = tokenOther
 		}
 
 		return true
 	case tokenUnknownComment:
 		switch curByte {
 		case '/':
-			t.curToken = tokenSingleComment
+			t.lastToken = tokenSingleComment
 		case '*':
-			t.curToken = tokenMultiComment
+			t.lastToken = tokenMultiComment
 		}
 		return true
 	}
 
 	switch curByte {
 	case '"':
-		t.curToken = tokenString
+		t.lastToken = tokenString
 	case '/':
-		t.curToken = tokenUnknownComment
+		t.lastToken = tokenUnknownComment
 		return true
 	}
 
