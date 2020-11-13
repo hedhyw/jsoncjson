@@ -65,14 +65,22 @@ const (
 	tokenMultiComment
 	tokenUnknownComment
 	tokenOther
+	tokenEscaping
 )
 
 func (t *jsoncTranslator) handleToken(curByte byte) (skip bool) {
 	switch t.lastToken {
 	case tokenString:
-		if curByte == '"' {
+		switch curByte {
+		case '"':
 			t.lastToken = tokenOther
+		case '\\':
+			t.lastToken = tokenEscaping
 		}
+
+		return false
+	case tokenEscaping:
+		t.lastToken = tokenString
 
 		return false
 	case tokenSingleComment:
