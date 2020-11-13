@@ -124,6 +124,36 @@ func TestJSONWithCommentsReader(t *testing.T) {
 	})
 }
 
+func TestJSONStringEscaping(t *testing.T) {
+	type testData struct {
+		Hello string `json:"hello"`
+	}
+
+	t.Run("escape quote", func(tt *testing.T) {
+		const jsonc = `
+		{
+			"hello": "\"/"
+		}
+		`
+		var exp = &testData{
+			Hello: "\"/",
+		}
+		testJSON(tt, jsonc, exp, &testData{})
+	})
+
+	t.Run("escape slash", func(tt *testing.T) {
+		const jsonc = `
+		{
+			"hello": "Hello \\World\\"
+		}
+		`
+		var exp = &testData{
+			Hello: "Hello \\World\\",
+		}
+		testJSON(tt, jsonc, exp, &testData{})
+	})
+}
+
 func TestComplexExample(t *testing.T) {
 	const jsonc = `
 	{ // ...
