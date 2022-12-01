@@ -1,7 +1,6 @@
 # JSONcJSON
 
 ![Version](https://img.shields.io/github/v/tag/hedhyw/jsoncjson)
-[![Build Status](https://travis-ci.org/hedhyw/jsoncjson.svg?branch=master)](https://travis-ci.org/hedhyw/jsoncjson)
 [![Go Report Card](https://goreportcard.com/badge/github.com/hedhyw/jsoncjson)](https://goreportcard.com/report/github.com/hedhyw/jsoncjson)
 [![Coverage Status](https://coveralls.io/repos/github/hedhyw/jsoncjson/badge.svg?branch=master)](https://coveralls.io/github/hedhyw/jsoncjson?branch=master)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/hedhyw/jsoncjson)](https://pkg.go.dev/github.com/hedhyw/jsoncjson?tab=doc)
@@ -9,7 +8,7 @@
 
 The library provides a JSONC (json with comments) to JSON streamer. It
 supports multiline comments ( ` /* Comment */ `) and one-line comments
-( ` // Comment ` ).
+( ` // Comment ` ). It processes chunks of 512 bytes in place.
 
 For example, it translates JSON with comments:
 ```jsonc
