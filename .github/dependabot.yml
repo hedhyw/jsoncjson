@@ -9,3 +9,12 @@ updates:
       prefix: "chore(gha)"
     pull-request-branch-name:
       separator: "/"
+
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "chore(gomod)"
+    pull-request-branch-name:
+      separator: "/"
