@@ -1,0 +1,21 @@
+# jsoncjson
+
+> Tiny, dependency-free Go library that streams JSONC (JSON with comments)
+> into valid JSON. `jsoncjson.NewReader(r)` wraps any `io.Reader` yielding
+> JSONC and returns an `io.Reader` yielding pure JSON, stripping one-line
+> (`// ...`) and multiline (`/* ... */`) comments on the fly — comments inside
+> JSON strings are preserved. The output can be fed straight into
+> `encoding/json`.
+
+Module: `github.com/hedhyw/jsoncjson` (Go). Single root package, no
+dependencies.
+
+Import path:
+- `github.com/hedhyw/jsoncjson` — `NewReader(r io.Reader) io.Reader`, the entire public API
+
+## Docs
+
+- [README](https://github.com/hedhyw/jsoncjson/blob/master/README.md): purpose, installation, usage example
+- [AGENTS.md](https://github.com/hedhyw/jsoncjson/blob/master/AGENTS.md): guide for coding agents — API summary, layout, commands, conventions
+- [API reference](https://pkg.go.dev/github.com/hedhyw/jsoncjson): godoc with runnable examples
+- [example_test.go](https://github.com/hedhyw/jsoncjson/blob/master/example_test.go): runnable examples (decode, from bytes/string/file)
