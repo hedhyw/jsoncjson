@@ -12,7 +12,6 @@
 //	{
 //		"Hello": "World"
 //	}
-//
 package jsoncjson
 
 import (

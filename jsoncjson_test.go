@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"reflect"
 	"strconv"
 	"strings"
@@ -242,7 +242,7 @@ func TestLargeJSON(t *testing.T) {
 	var r = jsoncjson.NewReader(bytes.NewReader(expBuf))
 
 	var gotBuf []byte
-	gotBuf, err = ioutil.ReadAll(r)
+	gotBuf, err = io.ReadAll(r)
 	if err != nil {
 		t.Fatalf("err: %s", err)
 	}

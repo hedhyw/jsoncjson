@@ -1,4 +1,5 @@
 PRE_COMMIT_HOOK := ./.git/hooks/pre-commit
+GOLANGCI_LINT_VER := v2.12.2
 
 all: lint test hooks
 
@@ -20,4 +21,4 @@ test:
 .PHONY: test
 
 bin/golangci-lint:
-	curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.50.1
+	curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b ./bin $(GOLANGCI_LINT_VER)

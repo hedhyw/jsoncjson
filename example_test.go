@@ -86,7 +86,7 @@ func Example_jsoncFromFile() {
 	if err != nil {
 		log.Fatalf("openning: %s: %s", exampleFile, err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	var r = jsoncjson.NewReader(f)
 
