@@ -21,4 +21,4 @@ test:
 .PHONY: test
 
 bin/golangci-lint:
-	curl -sSfL https://golangci-lint.run/install.sh | sh -s -- -b ./bin $(GOLANGCI_LINT_VER)
+	GOBIN=$(PWD)/bin go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@$(GOLANGCI_LINT_VER)
