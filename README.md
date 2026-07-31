@@ -52,7 +52,7 @@ const in = `
 var r = jsoncjson.NewReader(strings.NewReader(in))
 
 var data map[string]interface{}
-_, = json.NewDecoder(r).Decode(&data)
+_ = json.NewDecoder(r).Decode(&data)
 
 fmt.Printf("%+v\n", data) // map[Hello:world].
 ```
