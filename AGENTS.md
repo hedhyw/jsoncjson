@@ -25,15 +25,19 @@ Keep it that way — new exported surface needs a strong justification.
 ## Layout
 
 ```
-jsoncjson.go        # the whole implementation: NewReader + token state machine
-jsoncjson_test.go   # unit tests (table-driven, stdlib testing only)
-example_test.go     # runnable godoc examples (Example_*)
-example.jsonc       # fixture used by Example_jsoncFromFile
-makefile            # lint/test targets
+jsoncjson.go              # the whole implementation: NewReader + token state machine
+jsoncjson_test.go         # unit tests (table-driven, stdlib testing only)
+example_test.go           # runnable godoc examples (Example_*)
+example.jsonc             # fixture used by Example_jsoncFromFile
+cmd/jsoncjson/main.go     # CLI: jsoncjson [-o out] [file...], stdin/stdout by default
+cmd/jsoncjson/main_test.go # CLI tests (run() is called directly, no process spawn)
+makefile                  # lint/test targets
 ```
 
-Single root package, no subpackages, no dependencies (`go.mod` has no
-`require` block).
+The library is a single root package with no dependencies (`go.mod` has no
+`require` block). `cmd/jsoncjson` is a thin main package on top of it: all the
+logic lives in `run(args, stdin, stdout, stderr) error` so it stays testable,
+and it uses only `flag` and `os` from the standard library.
 
 ## Commands
 
@@ -48,7 +52,8 @@ Go version: see `go.mod`. There is no code generation.
 
 ## Conventions
 
-- Zero dependencies: do not add any `require` to `go.mod`.
+- Zero dependencies: do not add any `require` to `go.mod`, in the library and
+  in the CLI alike.
 - The reader is streaming and allocation-light — avoid buffering the whole
   input; work byte-by-byte through the existing state machine
   (`handleToken`) in `jsoncjson.go`.
