@@ -33,7 +33,46 @@ to a valid JSON:
 go get github.com/hedhyw/jsoncjson
 ```
 
-## Usage example:
+## CLI:
+
+Install the command:
+
+```sh
+go install github.com/hedhyw/jsoncjson/cmd/jsoncjson@latest
+```
+
+It reads JSONC and writes plain JSON. Without file arguments (or with `-`)
+the input is read from stdin, the result goes to stdout:
+
+```sh
+# From stdin.
+echo '{ "Hello": "world" /* Comment. */ }' | jsoncjson
+
+# From a file.
+jsoncjson example.jsonc
+
+# To a file.
+jsoncjson -o config.json config.jsonc
+
+# Concatenate several inputs.
+jsoncjson a.jsonc b.jsonc
+
+# Pipe it further.
+jsoncjson config.jsonc | jq .
+```
+
+Flags:
+
+| Flag       | Description                        |
+| ---------- | ---------------------------------- |
+| `-o`       | Output file, `-` for stdout.       |
+| `-version` | Print the version and exit.        |
+| `-h`       | Print the usage and exit.          |
+
+The command exits with a non-zero status and writes the reason to stderr if
+the input cannot be read or the output cannot be written.
+
+## Library usage example:
 
 More [examples](./example_test.go).
 
